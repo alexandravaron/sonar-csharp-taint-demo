@@ -168,26 +168,61 @@ When analyzing this project with SonarQube, you should see:
 
 ### Prerequisites:
 - .NET 8.0 SDK
-- Visual Studio 2022 or VS Code
 - SonarQube Server or SonarCloud account
+- Git (for cloning)
 
-### Steps:
-1. **Clone and build**:
-   ```bash
-   git clone <repository>
-   cd sonar-csharp-demo
-   dotnet restore
-   dotnet build
-   ```
+### Quick Start (3 methods available):
 
-2. **Run SonarQube analysis**:
-   ```bash
-   dotnet sonarscanner begin /k:"csharp-taint-demo" /d:sonar.host.url="<your-sonar-url>"
-   dotnet build
-   dotnet sonarscanner end
-   ```
+#### Method 1: Automated Scripts (Recommended)
+```bash
+# Clone the repository
+git clone https://github.com/alexandravaron/sonar-csharp-taint-demo.git
+cd sonar-csharp-taint-demo
 
-3. **View results** in SonarQube dashboard
+# For Unix/macOS/Linux:
+./run-sonar-analysis.sh http://your-sonar-url your-sonar-token
+
+# For Windows PowerShell:
+.\run-sonar-analysis.ps1 -SonarUrl "http://your-sonar-url" -SonarToken "your-sonar-token"
+```
+
+#### Method 2: Make Commands (Unix/macOS)
+```bash
+# Set up demo environment
+make demo-setup
+
+# Run full analysis with summary
+make sonar-full SONAR_URL=http://your-sonar-url SONAR_TOKEN=your-token
+
+# Or just analysis
+make sonar-analysis SONAR_URL=http://your-sonar-url SONAR_TOKEN=your-token
+```
+
+#### Method 3: Manual Steps
+```bash
+# Install tools and restore packages
+dotnet tool restore
+dotnet restore
+
+# Run SonarQube analysis
+dotnet sonarscanner begin \
+    /k:"csharp-taint-analysis-demo" \
+    /n:"C# Taint Analysis Demo" \
+    /d:sonar.host.url="http://your-sonar-url" \
+    /d:sonar.token="your-sonar-token" \
+    /d:sonar.cs.roslyn.bugCategories="Security,Vulnerability" \
+    /d:sonar.security.review.enable="true"
+
+dotnet build --verbosity normal
+dotnet sonarscanner end /d:sonar.token="your-sonar-token"
+```
+
+### Enhanced Security Analysis Features:
+✅ **SonarAnalyzer.CSharp** - Built-in security rules  
+✅ **Custom Security Ruleset** - Emphasizes taint analysis vulnerabilities  
+✅ **Enhanced Configuration** - Optimized for security demonstration  
+✅ **Automated Scripts** - One-command analysis execution  
+✅ **Build Integration** - MSBuild-native SonarQube support
 
 ## 📊 Expected SonarQube Findings
 

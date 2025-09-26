@@ -1,0 +1,23 @@
+<Project>
+  
+  <PropertyGroup>
+    <!-- SonarQube Analysis Properties -->
+    <SonarQubeExclude>false</SonarQubeExclude>
+    <SonarQubeTestProject>false</SonarQubeTestProject>
+    
+    <!-- Enable all code analysis -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisMode>All</AnalysisMode>
+    <CodeAnalysisRuleSet>sonar-security.ruleset</CodeAnalysisRuleSet>
+    
+    <!-- Treat warnings as errors for demo (shows SonarQube value) -->
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>CS8601;CS8602;CS8604;CS8618</WarningsNotAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <!-- Enable more analysis in Release builds -->
+    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+  </PropertyGroup>
+
+</Project>

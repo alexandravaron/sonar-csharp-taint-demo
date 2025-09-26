@@ -24,15 +24,26 @@ try {
         throw "❌ .NET SDK not found. Please install .NET 8.0 SDK or later."
     }
 
-    # Check if SonarScanner for .NET is available
+    # Restore local tools first
+    Write-Host "🔧 Restoring .NET local tools..." -ForegroundColor Blue
+    dotnet tool restore
+
+    # Check if SonarScanner for .NET is available locally, then globally
     Write-Host "🔍 Checking SonarScanner for .NET..." -ForegroundColor Blue
-    dotnet tool list --global | Select-String "dotnet-sonarscanner"
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "📦 Installing SonarScanner for .NET..." -ForegroundColor Yellow
-        dotnet tool install --global dotnet-sonarscanner
+    $localTool = dotnet tool list | Select-String "dotnet-sonarscanner"
+    if (-not $localTool) {
+        $globalTool = dotnet tool list --global | Select-String "dotnet-sonarscanner"
+        if (-not $globalTool) {
+            Write-Host "📦 Installing SonarScanner for .NET globally..." -ForegroundColor Yellow
+            dotnet tool install --global dotnet-sonarscanner
+        }
     }
 
-    # Begin SonarQube analysis
+    # Clean previous builds
+    Write-Host "🧹 Cleaning previous builds..." -ForegroundColor Blue
+    dotnet clean
+
+    # Begin SonarQube analysis with enhanced security configuration
     Write-Host "🔬 Beginning SonarQube analysis..." -ForegroundColor Blue
     dotnet sonarscanner begin `
         /k:$ProjectKey `
@@ -40,14 +51,18 @@ try {
         /d:sonar.host.url=$SonarUrl `
         /d:sonar.token=$SonarToken `
         /d:sonar.cs.opencover.reportsPaths="coverage.opencover.xml" `
-        /d:sonar.exclusions="bin/**,obj/**"
+        /d:sonar.exclusions="bin/**,obj/**,.config/**,*.ruleset" `
+        /d:sonar.cs.roslyn.bugCategories="Security,Vulnerability" `
+        /d:sonar.security.hotspots.includeInOverallRating="true" `
+        /d:sonar.security.review.enable="true" `
+        /d:sonar.qualitygate.wait="true"
 
-    # Restore packages and build
+    # Restore packages and build with analysis
     Write-Host "📦 Restoring NuGet packages..." -ForegroundColor Blue
     dotnet restore
 
-    Write-Host "🔨 Building project..." -ForegroundColor Blue
-    dotnet build --no-restore
+    Write-Host "🔨 Building project with code analysis..." -ForegroundColor Blue
+    dotnet build --no-restore --verbosity normal
 
     # End SonarQube analysis
     Write-Host "📊 Completing SonarQube analysis..." -ForegroundColor Blue

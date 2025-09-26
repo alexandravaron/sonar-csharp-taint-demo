@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="SonarQube Security Rules for Taint Analysis Demo" Description="Custom ruleset emphasizing security vulnerabilities for demonstration" ToolsVersion="16.0">
+  
+  <!-- Enable all SonarAnalyzer.CSharp security rules -->
+  <Rules AnalyzerId="SonarAnalyzer.CSharp" RuleNamespace="SonarAnalyzer.CSharp">
+    
+    <!-- SQL Injection Rules -->
+    <Rule Id="S2077" Action="Error" />  <!-- Values passed to SQL commands should be sanitized -->
+    <Rule Id="S3649" Action="Error" />  <!-- User-provided values should be sanitized before use in SQL statements -->
+    
+    <!-- Command Injection Rules -->
+    <Rule Id="S2076" Action="Error" />  <!-- OS commands should not be vulnerable to injection attacks -->
+    <Rule Id="S4423" Action="Warning" /> <!-- Weak SSL/TLS protocols should not be used -->
+    
+    <!-- Path Traversal Rules -->
+    <Rule Id="S2083" Action="Error" />  <!-- I/O function calls should not be vulnerable to path injection attacks -->
+    <Rule Id="S5042" Action="Error" />  <!-- Zip entries should not be extracted outside their target directory -->
+    
+    <!-- LDAP Injection Rules -->
+    <Rule Id="S2078" Action="Error" />  <!-- LDAP queries should not be vulnerable to injection attacks -->
+    
+    <!-- XSS and Data Exposure Rules -->
+    <Rule Id="S5131" Action="Warning" /> <!-- Endpoints should not be vulnerable to reflected XSS attacks -->
+    <Rule Id="S4507" Action="Warning" /> <!-- Delivering code in production with debug features activated -->
+    
+    <!-- Cryptography Rules -->
+    <Rule Id="S4790" Action="Error" />  <!-- Hashing data is security-sensitive -->
+    <Rule Id="S5547" Action="Error" />  <!-- Cipher algorithms should be robust -->
+    <Rule Id="S4426" Action="Error" />  <!-- Cryptographic keys should be robust -->
+    
+    <!-- Authentication and Authorization Rules -->
+    <Rule Id="S5332" Action="Error" />  <!-- Using clear-text protocols is security-sensitive -->
+    <Rule Id="S4502" Action="Warning" /> <!-- Cross-Site Request Forgery (CSRF) should be prevented -->
+    <Rule Id="S5443" Action="Warning" /> <!-- Operating systems should be supported and up-to-date -->
+    
+    <!-- XML Processing Rules -->
+    <Rule Id="S2755" Action="Error" />  <!-- XML parsers should not be vulnerable to XXE attacks -->
+    <Rule Id="S4817" Action="Error" />  <!-- Executing XPath expressions is security-sensitive -->
+    
+    <!-- HTTP Security Rules -->
+    <Rule Id="S5122" Action="Warning" /> <!-- Having a permissive Cross-Origin Resource Sharing policy is security-sensitive -->
+    <Rule Id="S4830" Action="Warning" /> <!-- Server certificates should be verified during SSL/TLS connections -->
+    
+    <!-- General Security Rules -->
+    <Rule Id="S4784" Action="Error" />  <!-- Using regular expressions is security-sensitive -->
+    <Rule Id="S5659" Action="Warning" /> <!-- JWT should be signed and verified -->
+    <Rule Id="S6377" Action="Warning" /> <!-- XML signatures should be validated securely -->
+    
+  </Rules>
+  
+  <!-- Microsoft.CodeAnalysis.NetAnalyzers -->
+  <Rules AnalyzerId="Microsoft.CodeAnalysis.NetAnalyzers" RuleNamespace="Microsoft.CodeAnalysis.NetAnalyzers">
+    <Rule Id="CA2100" Action="Error" />  <!-- Review SQL queries for security vulnerabilities -->
+    <Rule Id="CA3001" Action="Error" />  <!-- Review code for SQL injection vulnerabilities -->
+    <Rule Id="CA3002" Action="Error" />  <!-- Review code for XSS vulnerabilities -->
+    <Rule Id="CA3003" Action="Error" />  <!-- Review code for file path injection vulnerabilities -->
+    <Rule Id="CA3004" Action="Error" />  <!-- Review code for information disclosure vulnerabilities -->
+    <Rule Id="CA3006" Action="Error" />  <!-- Review code for process command injection vulnerabilities -->
+    <Rule Id="CA3007" Action="Error" />  <!-- Review code for open redirect vulnerabilities -->
+    <Rule Id="CA3008" Action="Error" />  <!-- Review code for XPath injection vulnerabilities -->
+    <Rule Id="CA3009" Action="Error" />  <!-- Review code for XML injection vulnerabilities -->
+    <Rule Id="CA3010" Action="Error" />  <!-- Review code for XAML injection vulnerabilities -->
+    <Rule Id="CA3011" Action="Error" />  <!-- Review code for DLL injection vulnerabilities -->
+    <Rule Id="CA3012" Action="Error" />  <!-- Review code for regex injection vulnerabilities -->
+    <Rule Id="CA5350" Action="Error" />  <!-- Do Not Use Weak Cryptographic Algorithms -->
+    <Rule Id="CA5351" Action="Error" />  <!-- Do Not Use Broken Cryptographic Algorithms -->
+  </Rules>
+
+</RuleSet>

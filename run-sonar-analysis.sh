@@ -29,14 +29,24 @@ fi
 
 dotnet --version
 
-# Check if SonarScanner for .NET is available
+# Restore local tools first
+echo "🔧 Restoring .NET local tools..."
+dotnet tool restore
+
+# Check if SonarScanner for .NET is available locally, then globally
 echo "🔍 Checking SonarScanner for .NET..."
-if ! dotnet tool list --global | grep -q "dotnet-sonarscanner"; then
-    echo "📦 Installing SonarScanner for .NET..."
-    dotnet tool install --global dotnet-sonarscanner
+if ! dotnet tool list | grep -q "dotnet-sonarscanner"; then
+    if ! dotnet tool list --global | grep -q "dotnet-sonarscanner"; then
+        echo "📦 Installing SonarScanner for .NET globally..."
+        dotnet tool install --global dotnet-sonarscanner
+    fi
 fi
 
-# Begin SonarQube analysis
+# Clean previous builds
+echo "🧹 Cleaning previous builds..."
+dotnet clean
+
+# Begin SonarQube analysis with enhanced security configuration
 echo "🔬 Beginning SonarQube analysis..."
 dotnet sonarscanner begin \
     /k:"$PROJECT_KEY" \
@@ -44,14 +54,18 @@ dotnet sonarscanner begin \
     /d:sonar.host.url="$SONAR_URL" \
     /d:sonar.token="$SONAR_TOKEN" \
     /d:sonar.cs.opencover.reportsPaths="coverage.opencover.xml" \
-    /d:sonar.exclusions="bin/**,obj/**"
+    /d:sonar.exclusions="bin/**,obj/**,.config/**,*.ruleset" \
+    /d:sonar.cs.roslyn.bugCategories="Security,Vulnerability" \
+    /d:sonar.security.hotspots.includeInOverallRating="true" \
+    /d:sonar.security.review.enable="true" \
+    /d:sonar.qualitygate.wait="true"
 
-# Restore packages and build
+# Restore packages and build with analysis
 echo "📦 Restoring NuGet packages..."
 dotnet restore
 
-echo "🔨 Building project..."
-dotnet build --no-restore
+echo "🔨 Building project with code analysis..."
+dotnet build --no-restore --verbosity normal
 
 # End SonarQube analysis
 echo "📊 Completing SonarQube analysis..."
