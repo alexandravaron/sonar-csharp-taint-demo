@@ -1,0 +1,87 @@
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio
+.vs/
+*.user
+*.rsuser
+*.suo
+*.sln.docstates
+
+# Files built by Visual Studio
+*.pidb
+*.svclog
+*.scc
+*.cache
+*.ilk
+*.log
+*.pdb
+*.idb
+*.pch
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# MSTest test Results
+*.testsettings
+*.vsmdi
+*.trx
+*.coverage
+*.coveragexml
+
+# SonarQube
+.sonarqube/
+.sonar/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Mono auto generated files
+mono_crash.*
+
+# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# Temporary folders
+tmp/
+temp/
+
+# Reports folder (for demo)
+reports/
