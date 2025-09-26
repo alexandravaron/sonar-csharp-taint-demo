@@ -70,6 +70,7 @@ try {
 
     Write-Host "✅ SonarQube analysis completed successfully!" -ForegroundColor Green
     Write-Host "🌐 View results at: $SonarUrl/dashboard?id=$ProjectKey" -ForegroundColor Cyan
+    Write-Host "🌐 Live SonarCloud Results: https://sonarcloud.io/project/overview?id=alexandravaron_sonar-csharp-taint-demo" -ForegroundColor Cyan
     
     # Expected findings summary
     Write-Host ""

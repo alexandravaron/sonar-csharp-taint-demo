@@ -73,6 +73,7 @@ dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN"
 
 echo "✅ SonarQube analysis completed successfully!"
 echo "🌐 View results at: $SONAR_URL/dashboard?id=$PROJECT_KEY"
+echo "🌐 Live SonarCloud Results: https://sonarcloud.io/project/overview?id=alexandravaron_sonar-csharp-taint-demo"
 
 # Expected findings summary
 echo ""

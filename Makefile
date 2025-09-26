@@ -61,6 +61,7 @@ sonar-analysis: clean install-tools ## Run SonarQube analysis (requires SONAR_UR
 	dotnet sonarscanner end /d:sonar.token="$(SONAR_TOKEN)"
 	@echo "✅ SonarQube analysis completed!"
 	@echo "🌐 View results at: $(SONAR_URL)/dashboard?id=$(PROJECT_KEY)"
+	@echo "🌐 Live SonarCloud Results: https://sonarcloud.io/project/overview?id=alexandravaron_sonar-csharp-taint-demo"
 
 sonar-full: sonar-analysis ## Complete SonarQube analysis with summary
 	@echo ""

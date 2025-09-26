@@ -224,16 +224,18 @@ dotnet sonarscanner end /d:sonar.token="your-sonar-token"
 ✅ **Automated Scripts** - One-command analysis execution  
 ✅ **Build Integration** - MSBuild-native SonarQube support
 
-## 📊 Expected SonarQube Findings
+## 📊 Live SonarCloud Analysis Results
 
-You should see security issues including:
-- **High**: SQL Injection vulnerabilities (multiple instances)
-- **High**: Command Injection vulnerabilities  
-- **High**: Path Traversal vulnerabilities
-- **High**: LDAP Injection vulnerabilities
-- **Medium**: SSRF vulnerabilities
-- **Medium**: XXE vulnerabilities
-- **Medium**: XSS vulnerabilities
+🌐 **View Live Results**: [https://sonarcloud.io/project/overview?id=alexandravaron_sonar-csharp-taint-demo](https://sonarcloud.io/project/overview?id=alexandravaron_sonar-csharp-taint-demo)
+
+The SonarCloud analysis shows **27+ critical security vulnerabilities** including:
+- **High**: SQL Injection vulnerabilities (8+ instances across multiple files)
+- **High**: Command Injection vulnerabilities (3+ instances)
+- **High**: Path Traversal vulnerabilities (5+ instances)  
+- **High**: LDAP Injection vulnerabilities (2+ instances)
+- **Medium**: SSRF vulnerabilities (2+ instances)
+- **Medium**: XXE vulnerabilities (1+ instance)
+- **Medium**: XSS vulnerabilities (2+ instances)
 
 ## ⚠️ Important Notes
 
